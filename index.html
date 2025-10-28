@@ -1,46 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>83 Suk Sawat - Find you perfect apartment here</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>83 Suk Sawat - Find Your Perfect Apartment</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/e04a44eac6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header class="header">
-        <h1>83 Suk Sawat</h1>
-        <h2>Find Your Perfect Apartment Now - And Book a Appointment Whenever You Like</h2>
-        <p>83 Suk Sawat Let's you book a appoinment whenever you'd like.</p>
-    </header>
-    <main>
-        <div class="feature-container" id="f1">
-            <i class="fa-solid fa-address-card"></i>
-            <div class="text">
-                <h2>Book now, appoinment any time</h2>
-                <p>If you join in to the 83 Suk Sawat Community,
-                    you will get to book anytime (or now) and appointment anytime
-                </p>
-            </div>
-        </div>
-        <div class="feature-container" id="f2">
-            <i class="fa-solid fa-location-dot"></i>
-            <div class="text">
-                <h2>Near Big C Suk Sawat, Edge of Suk Sawat Rd, Center of BTS Phra Pradaeng and BTS Kru Nai</h2>
-                <p>If you join in to the 83 Suk Sawat Community,
-                    you will get Big C Suk Sawat, Edge of Suk Sawat Rd, Center of BTS Phra Pradaeng and BTS Kru Nai
-                </p>
-            </div>
-        </div>
-    </main>
-    <footer>
-        &copy; Copyright 83 Suk Sawat
-        <br>
-        <a href="https://www.youtube.com/channel/UC8cwj6ECktTc04DpvyhHOMw">
-            <i class="fa-brands fa-youtube"></i>
-        </a>
-    </footer>
 
+  <!-- Navigation -->
+  <nav>
+    <a href="#header" class="nav-btn">Home</a>
+    <a href="#main" class="nav-btn">Features</a>
+    <a href="#contact" class="nav-btn">Contact</a>
+  </nav>
 
-    <script src="https://kit.fontawesome.com/e04a44eac6.js" crossorigin="anonymous"></script>
+  <!-- Header -->
+  <header id="header">
+    <h1>83 Suk Sawat</h1>
+    <h2>Find Your Perfect Apartment</h2>
+    <p>Book an appointment anytime with our community.</p>
+  </header>
+
+  <!-- Features Section -->
+  <main id="main">
+    <section class="feature">
+      <i class="fa-solid fa-calendar-check"></i>
+      <div class="text">
+        <h3>Book Anytime</h3>
+        <p>Join the 83 Suk Sawat Community and book appointments whenever you want.</p>
+      </div>
+    </section>
+
+    <section class="feature">
+      <i class="fa-solid fa-location-dot"></i>
+      <div class="text">
+        <h3>Perfect Location</h3>
+        <p>Near Big C Suk Sawat, edge of Suk Sawat Rd, close to BTS Phra Pradaeng and BTS Kru Nai.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+      <p id="statusMessage"></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 83 Suk Sawat
+    <div class="socials">
+      <a href="https://www.youtube.com/channel/UC8cwj6ECktTc04DpvyhHOMw" target="_blank">
+        <i class="fa-brands fa-youtube"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Contact Form Script -->
+  <script>
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('statusMessage');
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwVYyanqlfmdOfrdveFYBjxt7w1Wz5YuLgU8myI_GnysYQx4_68OUPVXSQpppGTUHWx/exec"; // replace with your Google Apps Script URL
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(json => {
+        if(json.status === "success"){
+          status.textContent = "✅ Message sent successfully!";
+          form.reset();
+        }
+      })
+      .catch(err => {
+        status.textContent = "❌ Error sending message, try again.";
+        console.error(err);
+      });
+    });
+  </script>
+
 </body>
 </html>
